@@ -1,0 +1,25 @@
+<form class="card" [formGroup]="form" (ngSubmit)="submit()">
+    <h2>Войти в панель администратора</h2>
+
+    <div class="form-control">
+        <label for="email">Email:</label>
+        <input [ngClass]="{invalid: form.controls['email'].invalid && form.controls['email'].touched}" id="email" type="email" formControlName="email" >
+        <div class="validation" *ngIf="form.controls['email'].invalid && form.controls['email'].touched">
+            <small *ngIf="form.get('email')?.errors?.required">Email не может быть пустым</small>
+            <small *ngIf="form.get('email')?.errors?.email">Ведите корректный email</small>
+        </div>
+    </div>
+    
+    <div class="form-control password">
+        <label for="password">Пароль:</label>
+        <input #inputPassword [ngClass]="{invalid: form.controls['password'].invalid && form.controls['password'].touched}" id="password" type="password" formControlName="password">
+        <img *ngIf="!hide" src="./../../../assets/img/hide.png" class="img_show" (click)="showPassword()">        
+        <img *ngIf="hide" src="./../../../assets/img/view.png" class="img_show" (click)="showPassword()">        
+        <div class="validation" *ngIf="form.controls['password'].invalid && form.controls['password'].touched">
+            <small *ngIf="form.get('password')?.errors?.required">Пароль не может быть пустым</small>
+            <small *ngIf="form.get('password')?.errors?.minlength">Минимальное кол-во символов 6</small>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Войти</button>
+</form>

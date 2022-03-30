@@ -1,0 +1,15 @@
+form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+.password {
+    position: relative;
+    .img_show {
+        cursor: pointer;
+        width: 20px;
+        height: auto;
+        position: absolute;
+        top: 35px;
+        right: 10px;
+    }
+}
