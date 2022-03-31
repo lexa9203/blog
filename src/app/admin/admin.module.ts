@@ -7,7 +7,8 @@ import { DashboardPageComponent } from './dashboard-page/dashboard-page.componen
 import { EditPageComponent } from './edit-page/edit-page.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from './shared/auth.service';
 
 @NgModule({
   declarations: [
@@ -21,8 +22,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     AdminRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  exports:[AdminRoutingModule]
+  exports: [AdminRoutingModule],
+  providers: [AuthService]
+
 })
 export class AdminModule { }

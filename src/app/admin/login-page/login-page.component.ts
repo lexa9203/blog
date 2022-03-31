@@ -1,6 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import IAdmin from 'src/app/shared/interface';
+import { Router } from '@angular/router';
+import { IAdmin } from 'src/app/shared/interface';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-login-page',
@@ -10,12 +12,12 @@ import IAdmin from 'src/app/shared/interface';
 export class LoginPageComponent implements OnInit {
 
   @ViewChild("inputPassword") PasswordRef!: ElementRef;
-
+    
   form!: FormGroup
 
   hide = true
 
-  constructor() { }
+  constructor(public auth: AuthService, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -28,10 +30,14 @@ export class LoginPageComponent implements OnInit {
   submit() {
     const admin: IAdmin = {
       email: this.form.value.email,
-      password: this.form.value.password
-    }    
-
-    this.form.reset()
+      password: this.form.value.password,
+      returnSecureToken: true                 //это свойство нужно, чтобы получать от firebase время окончания жизни токена
+    }  
+    
+    this.auth.login(admin).subscribe(() => {
+      this.form.reset()
+      this.router.navigate(['/admin', 'dashboard'])
+    })
   }
 
   showPassword() {
