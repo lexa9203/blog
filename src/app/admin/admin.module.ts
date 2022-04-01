@@ -5,10 +5,12 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { CreatePageComponent } from './create-page/create-page.component';
 import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
 import { EditPageComponent } from './edit-page/edit-page.component';
-import { AdminRoutingModule } from './admin-routing.module';
+import { AdminRoutingModule } from './shared/services/admin-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthService } from './shared/auth.service';
+import { AuthService } from './shared/services/auth.service';
+import { AuthGuard } from './shared/services/auth.guard';
+import { SearchPipe } from './shared/pipes/search.pipe';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,8 @@ import { AuthService } from './shared/auth.service';
     LoginPageComponent,
     CreatePageComponent,
     DashboardPageComponent,
-    EditPageComponent
+    EditPageComponent,
+    SearchPipe
   ],
   imports: [
     CommonModule,
@@ -26,7 +29,7 @@ import { AuthService } from './shared/auth.service';
     HttpClientModule
   ],
   exports: [AdminRoutingModule],
-  providers: [AuthService]
+  providers: [AuthService, AuthGuard]
 
 })
 export class AdminModule { }

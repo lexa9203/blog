@@ -1,2 +1,33 @@
+<div class="container">
+    <h1>Создание поста</h1>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        
+        <div class="form-control">
+            <label for="author">Автор поста:</label>
+            <input [ngClass]="{invalid: form.controls['author'].invalid && form.controls['author'].touched}" id="author" type="text" formControlName="author" >
+            <div class="validation" *ngIf="form.controls['author'].invalid && form.controls['author'].touched">
+                <small *ngIf="form.get('author')?.errors?.required">Поле не может быть пустым</small>
+            </div>
+        </div>
+        
+        <div class="form-control">
+            <label for="title">Заголовок поста:</label>
+            <input [ngClass]="{invalid: form.controls['title'].invalid && form.controls['title'].touched}" id="title" type="text" formControlName="title" >
+            <div class="validation" *ngIf="form.controls['title'].invalid && form.controls['title'].touched">
+                <small *ngIf="form.get('title')?.errors?.required">Поле не может быть пустым</small>
+            </div>
+        </div>
+        
+        <div class="form-control">
+            <label id="text">Контент поста:</label>
+            <textarea [ngClass]="{invalid: form.controls['text'].invalid && form.controls['text'].touched}" id="text" type="text" formControlName="text" ></textarea>
+            <div class="validation" *ngIf="form.controls['text'].invalid && form.controls['text'].touched">
+                <small *ngIf="form.get('text')?.errors?.required">Поле не может быть пустым</small>
+            </div>
 
-<p>!create-page works!!!</p>
+            <!-- <quill-editor></quill-editor> также можно использовать этот плагин вместо textarea  doc:https://github.com/quilljs/quill -->
+        </div>
+
+        <button [disabled]="form.invalid" class="btn btn-dark btn-center">Создать пост</button>
+    </form>
+</div>
