@@ -41,8 +41,11 @@ export class AuthService {
   }
 
   get token():string | null {
-    const expDateOld = localStorage.getItem('fb-token-exp')!
+    const expDateOld = localStorage.getItem('fb-token-exp')!    
     if (+expDateOld > new Date().getTime()) {
+      if (+expDateOld - new Date().getTime() < 10000) {
+        alert('Скоро прекратиться срок хранения токена! Необходимо перезайти')
+      }
       return localStorage.getItem('fb-token')
     } else {
       this.logout()
