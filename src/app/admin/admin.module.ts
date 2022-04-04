@@ -11,6 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './shared/services/auth.service';
 import { AuthGuard } from './shared/services/auth.guard';
 import { SearchPipe } from './shared/pipes/search.pipe';
+import { QuillModule } from 'ngx-quill'
+import { TextPipe } from './shared/pipes/text.pipe';
 
 @NgModule({
   declarations: [
@@ -19,9 +21,11 @@ import { SearchPipe } from './shared/pipes/search.pipe';
     CreatePageComponent,
     DashboardPageComponent,
     EditPageComponent,
-    SearchPipe
+    SearchPipe,
+    TextPipe
   ],
   imports: [
+    QuillModule.forRoot(),
     CommonModule,
     AdminRoutingModule,
     FormsModule,

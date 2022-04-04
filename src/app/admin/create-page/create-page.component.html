@@ -19,15 +19,14 @@
         </div>
         
         <div class="form-control">
-            <label id="text">Контент поста:</label>
-            <textarea [ngClass]="{invalid: form.controls['text'].invalid && form.controls['text'].touched}" id="text" type="text" formControlName="text" ></textarea>
+            <label>Контент поста:</label>
+            <quill-editor [styles]="{height: '250px'}" formControlName="text"></quill-editor>
             <div class="validation" *ngIf="form.controls['text'].invalid && form.controls['text'].touched">
                 <small *ngIf="form.get('text')?.errors?.required">Поле не может быть пустым</small>
             </div>
 
-            <!-- <quill-editor></quill-editor> также можно использовать этот плагин вместо textarea  doc:https://github.com/quilljs/quill -->
         </div>
 
-        <button [disabled]="form.invalid" class="btn btn-dark btn-center">Создать пост</button>
+        <button [disabled]="form.invalid" class="btn btn-dark btn-center" type="submit">Создать пост</button>
     </form>
 </div>
