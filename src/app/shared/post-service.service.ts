@@ -1,8 +1,7 @@
-import { keyframes } from '@angular/animations';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { fbResponse, IPost } from './interface';
 
@@ -38,7 +37,16 @@ export class PostService {
       )
   }
 
+  getPost(id: string):Observable<IPost> {
+    return this.http.get<IPost>(`${environment.fbUrl}/posts/${id}.json`)
+  }
+
   deletePost(id: string): Observable<void> {
     return this.http.delete<void>(`${environment.fbUrl}/posts/${id}.json`)
   }
+
+  editPost(id: string, post: IPost):Observable<IPost> {
+    return this.http.patch<IPost>(`${environment.fbUrl}/posts/${id}.json`, post)/* частичное обновление обьекта */
+/*     return this.http.put<IPost>(`${environment.fbUrl}/posts/${id}.json`, post)
+ */  }
 }

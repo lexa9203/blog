@@ -12,6 +12,8 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
 
   searchTitle = ''
 
+  loadPosts = true
+
   posts: IPost[] = []
 
   subcribePost!: Subscription
@@ -19,7 +21,15 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   constructor(private postService: PostService) { }
   
   ngOnInit(): void {
-    this.subcribePost = this.postService.getPosts().subscribe((res) => this.posts = res, (err) => {console.log(err)})
+    this.subcribePost = this.postService.getPosts().subscribe(
+      (res) => {
+        this.loadPosts = false
+        return this.posts = res;
+      }, 
+      (err) => {
+        this.loadPosts = false;
+        console.log(err)
+      })
   }
 
   ngOnDestroy(): void {
