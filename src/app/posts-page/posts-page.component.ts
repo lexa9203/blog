@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { IPost } from '../shared/interface';
 
 @Component({
   selector: 'app-posts-page',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostsPageComponent implements OnInit {
 
+  @Input() postPage!:IPost
+
   constructor() { }
+  
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

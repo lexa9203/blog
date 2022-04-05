@@ -17,7 +17,6 @@ const INTERCEPTOR_PROVIDER: Provider = {/* интерсепторы регист
   multi: true,
   useClass: AuthInterceptor
 }
-
 const modulesQuill = [
   ['bold', 'italic', 'underline', 'strike'],
   [{ 'header': 1 }, { 'header': 2 }],

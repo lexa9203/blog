@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { IPost } from 'src/app/shared/interface';
 import { PostService } from 'src/app/shared/post-service.service';
+import {AlertService} from "../shared/services/alert.service";
 
 @Component({
   selector: 'app-edit-page',
@@ -13,22 +14,22 @@ import { PostService } from 'src/app/shared/post-service.service';
 export class EditPageComponent implements OnInit, OnDestroy {
 
   updateSub?: Subscription
-  
+
   getPostSub?: Subscription
 
   id!: string
 
   form!: FormGroup
 
-  constructor(private router: Router, private route: ActivatedRoute, private postService: PostService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private postService: PostService, private alert: AlertService) { }
 
   ngOnInit(): void {
-    
+
     this.route.params.subscribe((params) => {
       this.id = params['id']
     })
 
-    
+
     this.getPostSub = this.postService.getPost(this.id).subscribe((res: IPost) => {
       this.form = new FormGroup({
         author: new FormControl({value: res.author, disabled: true}),
@@ -61,6 +62,7 @@ export class EditPageComponent implements OnInit, OnDestroy {
     }
 
     this.updateSub = this.postService.editPost(this.id, post).subscribe(() => {
+      this.alert.warning('Изменения сохранены')
       this.router.navigate(['/admin', 'dashboard'])
     })
   }
