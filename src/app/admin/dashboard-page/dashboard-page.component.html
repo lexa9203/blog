@@ -16,7 +16,7 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let post of posts | search:searchTitle; let idx = index">
+        <tr class="cursor" *ngFor="let post of posts | search:searchTitle; let idx = index" [routerLink]="['/admin', 'post', post.id, 'edit']">
           <td>{{idx + 1}}</td>
           <td>{{post.author}}</td>
           <td>{{post.title}}</td>

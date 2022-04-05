@@ -1,12 +1,16 @@
-<div class="card">
-    <div class="card-header">
-        <h2>Post Title</h2>
-        <small>30.03.2022</small>
+<div class="post" *ngIf="post; else loading">
+    <div class="header">
+        <h1>{{post.title}}</h1>
+        <button routerLink="/" class="btn btn-link">На главную</button>
     </div>
 
-    <div>
-        <small>Aleksey</small>
+    <div class="info">
+        <strong>{{post.author}}</strong>
+        <small>{{post.date | date:'H:mm dd.MM.yyyy'}}</small>
     </div>
 
-    <button [routerLink]="[ '/posts', 222 ]" class="btn btn-dark">Открыть пост</button>
+    <quill-view-html [content]="post.text"></quill-view-html>
 </div>
+<ng-template #loading>
+    <h3 class="text-center">Загрузка поста...</h3>
+</ng-template>

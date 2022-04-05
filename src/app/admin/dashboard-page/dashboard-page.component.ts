@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { IPost } from 'src/app/shared/interface';
 import { PostService } from 'src/app/shared/post-service.service';
+import { AlertService } from "../shared/services/alert.service";
 
 @Component({
   selector: 'app-dashboard-page',
@@ -18,14 +19,14 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
 
   subcribePost!: Subscription
 
-  constructor(private postService: PostService) { }
-  
+  constructor(private postService: PostService, private alert: AlertService) { }
+
   ngOnInit(): void {
     this.subcribePost = this.postService.getPosts().subscribe(
       (res) => {
         this.loadPosts = false
         return this.posts = res;
-      }, 
+      },
       (err) => {
         this.loadPosts = false;
         console.log(err)
@@ -40,6 +41,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
 
   deletePost(id: string | undefined) {
     this.postService.deletePost(id!).subscribe(() => {
+      this.alert.danger('Пост удален')
       this.posts = this.posts.filter((post) => post.id !== id)
     })
   }
